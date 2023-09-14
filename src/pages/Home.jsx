@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import "../styles/Home.css";
 const Home = () => {
   const [clients, setClients] = useState([]);
   const [stores, setStores] = useState([]);
   const [software, setSoftware] = useState([]);
   const [selectedClient, setSelectedClient] = useState("");
   const [selectedStore, setSelectedStore] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  //   const handleSelectedStore = (store) => {
+  //     setSelectedStore(store);
+  //     setIsModalOpen(true);
+  //   };
 
   useEffect(() => {
     // Fetch unique clients
@@ -51,56 +57,176 @@ const Home = () => {
   }, [selectedClient, selectedStore]);
 
   return (
-    <div>
-      <h1>Client List</h1>
-      <ul>
-        {clients.length > 0 ? (
-          clients.map((client) => (
-            <li key={client} onClick={() => setSelectedClient(client)}>
-              {client}
-            </li>
-          ))
-        ) : (
-          <li>No clients available</li>
-        )}
-      </ul>
+    // <div>
+    //   <h1>Client List</h1>
+    //   <ul>
+    //     {clients.length > 0 ? (
+    //       clients.map((client) => (
+    //         <li key={client} onClick={() => setSelectedClient(client)}>
+    //           {client}
+    //         </li>
+    //       ))
+    //     ) : (
+    //       <li>No clients available</li>
+    //     )}
+    //   </ul>
 
-      {selectedClient && (
-        <div>
-          <h2>Store List for {selectedClient}</h2>
-          <ul>
-            {stores.length > 0 ? (
-              stores.map((store) => (
-                <li key={store} onClick={() => setSelectedStore(store)}>
-                  {store}
-                </li>
+    //   {selectedClient && (
+    //     <div>
+    //       <h2>Store List for {selectedClient}</h2>
+    //       <ul>
+    //         {stores.length > 0 ? (
+    //           stores.map((store) => (
+    //             <li key={store} onClick={() => setSelectedStore(store)}>
+    //               {store}
+    //             </li>
+    //           ))
+    //         ) : (
+    //           <li>No stores available for {selectedClient}</li>
+    //         )}
+    //       </ul>
+    //     </div>
+    //   )}
+
+    //   {selectedClient && selectedStore && (
+    //     <div>
+    //       <h3>
+    //         Software Data for {selectedClient} - {selectedStore}
+    //       </h3>
+    //       <ul>
+    //         {software.length > 0 ? (
+    //           software.map((entry, index) => (
+    //             <li key={index}>
+    //               Software: {entry.software}, App: {entry.app}
+    //             </li>
+    //           ))
+    //         ) : (
+    //           <li>
+    //             No software data available for {selectedClient} -{" "}
+    //             {selectedStore}
+    //           </li>
+    //         )}
+    //       </ul>
+    //     </div>
+    //   )}
+    // </div>
+    <div className="mt-5 container">
+      <h1>Health Tracker</h1>
+      <div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th className="col">S no.</th>
+              <th className="col">Client Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clients.length > 0 ? (
+              clients.map((client, index) => (
+                <tr key={client}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <span className="m-4">{client}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedClient(client);
+                        setSelectedStore("");
+                      }}
+                    >
+                      View
+                    </button>
+                    <div>
+                      <table className="table">
+                        {/* <thead>
+                          <tr>
+                            <th className="col">S no.</th>
+                            <th className="col">Store Name</th>
+                          </tr>
+                        </thead> */}
+                        <tbody>
+                          {selectedClient &&
+                            selectedClient === client &&
+                            (stores.length > 0 ? (
+                              stores.map((store, index) => (
+                                <tr key={store}>
+                                  <td>{index + 1}</td>
+                                  <td>
+                                    <span className="m-4">{store}</span>
+                                    <button
+                                      onClick={() => {
+                                        setSelectedStore(store);
+                                        setIsModalOpen(true);
+                                      }}
+                                      type="button"
+                                    >
+                                      View Software
+                                    </button>
+                                    {/* <div>
+                                      <table className="table">
+                                        <tbody>
+                                          {selectedClient &&
+                                            selectedStore &&
+                                            selectedClient === client &&
+                                            selectedStore === store &&
+                                            (software.length > 0 ? (
+                                              software.map((idx) => (
+                                                <tr key={idx}>
+                                                  <td>{idx.software}</td>
+                                                  <td>{idx.app}</td>
+                                                </tr>
+                                              ))
+                                            ) : (
+                                              <h1>
+                                                No softwares available for this
+                                                store
+                                              </h1>
+                                            ))}
+                                        </tbody>
+                                      </table>
+                                    </div> */}
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <h1> No stores available for this client</h1>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
               ))
             ) : (
-              <li>No stores available for {selectedClient}</li>
+              <h1>No Clients Available</h1>
             )}
-          </ul>
-        </div>
-      )}
-
-      {selectedClient && selectedStore && (
-        <div>
-          <h3>
-            Software Data for {selectedClient} - {selectedStore}
-          </h3>
-          <ul>
+          </tbody>
+        </table>
+      </div>
+      {isModalOpen && (
+        <div
+          style={isModalOpen && { display: "block" }}
+          className={`${isModalOpen && "show-modal"} modal`}
+        >
+          <div className="modal-content">
+            <span className="close" onClick={() => setIsModalOpen(false)}>
+              &times;
+            </span>
+            <h2>Store Information</h2>
+            <p>Store Name: {selectedStore}</p>
+            <h3>Software</h3>
             {software.length > 0 ? (
-              software.map((entry, index) => (
-                <li key={index}>
-                  Software: {entry.software}, App: {entry.app}
-                </li>
-              ))
+              <ul>
+                {software.map((entry, index) => (
+                  <li key={index}>
+                    Software: {entry.software}, App: {entry.app}
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <li>
-                No software data available for {selectedClient} -{" "}
-                {selectedStore}
-              </li>
+              <p>No software available for this store.</p>
             )}
-          </ul>
+          </div>
         </div>
       )}
     </div>
