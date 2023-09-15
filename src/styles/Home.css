@@ -39,3 +39,6 @@
 .close:hover {
   color: red;
 }
+.show-modal {
+  display: block;
+}

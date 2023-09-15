@@ -8,6 +8,7 @@ const Home = () => {
   const [selectedClient, setSelectedClient] = useState("");
   const [selectedStore, setSelectedStore] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [check, setCheck] = useState(false);
 
   //   const handleSelectedStore = (store) => {
   //     setSelectedStore(store);
@@ -57,59 +58,6 @@ const Home = () => {
   }, [selectedClient, selectedStore]);
 
   return (
-    // <div>
-    //   <h1>Client List</h1>
-    //   <ul>
-    //     {clients.length > 0 ? (
-    //       clients.map((client) => (
-    //         <li key={client} onClick={() => setSelectedClient(client)}>
-    //           {client}
-    //         </li>
-    //       ))
-    //     ) : (
-    //       <li>No clients available</li>
-    //     )}
-    //   </ul>
-
-    //   {selectedClient && (
-    //     <div>
-    //       <h2>Store List for {selectedClient}</h2>
-    //       <ul>
-    //         {stores.length > 0 ? (
-    //           stores.map((store) => (
-    //             <li key={store} onClick={() => setSelectedStore(store)}>
-    //               {store}
-    //             </li>
-    //           ))
-    //         ) : (
-    //           <li>No stores available for {selectedClient}</li>
-    //         )}
-    //       </ul>
-    //     </div>
-    //   )}
-
-    //   {selectedClient && selectedStore && (
-    //     <div>
-    //       <h3>
-    //         Software Data for {selectedClient} - {selectedStore}
-    //       </h3>
-    //       <ul>
-    //         {software.length > 0 ? (
-    //           software.map((entry, index) => (
-    //             <li key={index}>
-    //               Software: {entry.software}, App: {entry.app}
-    //             </li>
-    //           ))
-    //         ) : (
-    //           <li>
-    //             No software data available for {selectedClient} -{" "}
-    //             {selectedStore}
-    //           </li>
-    //         )}
-    //       </ul>
-    //     </div>
-    //   )}
-    // </div>
     <div className="mt-5 container">
       <h1>Health Tracker</h1>
       <div>
@@ -132,37 +80,39 @@ const Home = () => {
                       onClick={() => {
                         setSelectedClient(client);
                         setSelectedStore("");
+                        setCheck(!check);
                       }}
                     >
                       View
                     </button>
-                    <div>
-                      <table className="table">
-                        {/* <thead>
+                    {check && (
+                      <div>
+                        <table className="table">
+                          {/* <thead>
                           <tr>
                             <th className="col">S no.</th>
                             <th className="col">Store Name</th>
                           </tr>
                         </thead> */}
-                        <tbody>
-                          {selectedClient &&
-                            selectedClient === client &&
-                            (stores.length > 0 ? (
-                              stores.map((store, index) => (
-                                <tr key={store}>
-                                  <td>{index + 1}</td>
-                                  <td>
-                                    <span className="m-4">{store}</span>
-                                    <button
-                                      onClick={() => {
-                                        setSelectedStore(store);
-                                        setIsModalOpen(true);
-                                      }}
-                                      type="button"
-                                    >
-                                      View Software
-                                    </button>
-                                    {/* <div>
+                          <tbody>
+                            {selectedClient &&
+                              selectedClient === client &&
+                              (stores.length > 0 ? (
+                                stores.map((store, index) => (
+                                  <tr key={store}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                      <span className="m-4">{store}</span>
+                                      <button
+                                        onClick={() => {
+                                          setSelectedStore(store);
+                                          setIsModalOpen(true);
+                                        }}
+                                        type="button"
+                                      >
+                                        View Software
+                                      </button>
+                                      {/* <div>
                                       <table className="table">
                                         <tbody>
                                           {selectedClient &&
@@ -185,15 +135,16 @@ const Home = () => {
                                         </tbody>
                                       </table>
                                     </div> */}
-                                  </td>
-                                </tr>
-                              ))
-                            ) : (
-                              <h1> No stores available for this client</h1>
-                            ))}
-                        </tbody>
-                      </table>
-                    </div>
+                                    </td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <h1> No stores available for this client</h1>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))
