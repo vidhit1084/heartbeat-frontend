@@ -42,3 +42,34 @@
 .show-modal {
   display: block;
 }
+
+.pointy-icon {
+  cursor: pointer; /* Change cursor on hover to a pointer */
+  transition: transform 0.5s; /* Add a smooth transition effect */
+}
+
+.pointy-icon:hover {
+  transform: rotate(90deg); /* Rotate the icon 90 degrees on hover */
+}
+
+.rotated {
+  transform: rotate(
+    180deg
+  ); /* Rotate the icon 180 degrees when 'rotated' class is applied */
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.green-dot {
+  background-color: green;
+}
+
+.red-dot {
+  background-color: red;
+}
