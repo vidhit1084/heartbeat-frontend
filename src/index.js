@@ -7,16 +7,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import Register from "./pages/Register";
 import Login from "./pages/Login";
 import OnPrem from "./pages/OnPrem";
+import Welcome from "./pages/Welcome";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/InStore",
     element: <Home></Home>,
   },
-  // {
-  //   path: "/register",
-  //   element: <Register></Register>,
-  // },
+  {
+    path: "/",
+    element: <Welcome></Welcome>
+  },
   {
     path: "/login",
     element: <Login></Login>,
