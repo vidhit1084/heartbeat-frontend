@@ -27,7 +27,7 @@ const Home = () => {
   useEffect(() => {
     // Fetch unique clients
     axios
-      .get("http://localhost:3000/ping/clients", {
+      .get("https://api.metadome.ai/heartbeat-dev/ping/clients", {
         headers: {
           Authorization: `Bearer ${token}`, // Include the token in the request headers
         },
@@ -44,7 +44,7 @@ const Home = () => {
     // Fetch unique stores for the selected client
     if (selectedClient) {
       axios
-        .get(`http://localhost:3000/ping/store?client=${selectedClient}`)
+        .get(`https://api.metadome.ai/heartbeat-dev/ping/store?client=${selectedClient}`)
         .then((response) => {
           setStores(response.data.stores);
         })
@@ -59,7 +59,7 @@ const Home = () => {
     if (selectedClient && selectedStore) {
       axios
         .get(
-          `http://localhost:3000/ping/software?client=${selectedClient}&store=${selectedStore}`
+          `https://api.metadome.ai/heartbeat-dev/ping/software?client=${selectedClient}&store=${selectedStore}`
         )
         .then((response) => {
           setSoftware(response.data.data);
