@@ -32,7 +32,7 @@ const OnPrem = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/on-prem");
+        const response = await axios.get("https://api.metadome.ai/heartbeat-dev/on-prem");
         if (Array.isArray(response.data.data)) {
           const formattedData = response.data.data.map((item) => ({
             ...item,
